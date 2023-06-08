@@ -35,9 +35,11 @@ jobs:
 
     - name: Get commit hashes
       run: |
-        echo "last_commit=$(git log --merges -n 1 --pretty=format:\"%H\")" >> $GITHUB_ENV
+        echo "last_commit=$(git log --merges -n 1 --pretty=format:%H)" >> $GITHUB_ENV
         echo "${last_commit}"
         echo "MY_VARIABLE=example" >> $GITHUB_ENV
+        echo ---------------------------------
+        echo $MY_VARIABLE
         #echo "commit_before_last=$(git rev-parse ${last_commit}^)" >> $GITHUB_ENV
         #echo "${commit_before_last}"
         
