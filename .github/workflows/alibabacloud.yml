@@ -12,11 +12,28 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Install Git
-      run: sudo apt-get update && sudo apt-get -y install git
+    - name: Cache Git
+      id: cache-git
+      uses: actions/cache@v2
+      with:
+        path: /usr/bin/git
+        key: ${{ runner.os }}-git-${{ hashFiles('**/.gitmodules') }}
+
+    - name: Install Git if not cached
+      run: |
+        if [ ! -x "$(command -v git)" ]; then
+          sudo apt-get update
+          sudo apt-get install -y git
+        fi
+
+    - name: Use Cached Git
+      run: |
+        export PATH="/usr/bin/git:$PATH"
+        git --version
 
     - name: Get commit hashes
       run: |
+        git diff --name-only HEAD~1 HEAD
         LAST_COMMIT=$(git rev-parse HEAD)
         COMMIT_BEFORE_LAST=$(git rev-parse HEAD~1)
         echo "::set-output name=last_commit::$LAST_COMMIT"
