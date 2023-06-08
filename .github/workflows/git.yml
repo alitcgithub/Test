@@ -36,7 +36,10 @@ jobs:
     - name: Get commit hashes
       run: |
         echo "last_commit=$(git log --merges -n 1 --pretty=format:"%H")" >> $GITHUB_ENV
-        echo "commit_before_last=$(git log --merges -n 2 --skip 1 --pretty=format:"%H")" >> $GITHUB_ENV
+        echo "commit_before_last=$(git rev-parse ${{ env.last_commit }})" >> $GITHUB_ENV
+        echo ---------------------------------------
+        echo ${{ env.last_commit }}
+        echo ${{ env.commit_before_last }}
 
     - name: Create output directory
       run: mkdir diff_files
