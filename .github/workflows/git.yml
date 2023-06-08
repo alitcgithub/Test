@@ -33,6 +33,7 @@ jobs:
 
     - name: Get commit hashes
       run: |
+        git log --oneline
         git diff --name-only HEAD~1 HEAD
         #LAST_COMMIT=$(git rev-parse HEAD)
         #COMMIT_BEFORE_LAST=$(git rev-parse HEAD~1)
