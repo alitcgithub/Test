@@ -33,13 +33,19 @@ jobs:
         export PATH="/usr/bin/git:$PATH"
         git --version
 
-    - name: Get commit hashes
+    - name: Get merge commit hash
       run: |
         echo "LAST_COMMIT=$(git log --merges -n 1 --pretty=format:%H)" >> $GITHUB_ENV
-        echo $LAST_COMMIT
+        echo "Value $LAST_COMMIT"
         #echo "COMMIT_BEFORE_LAST=$(git rev-list -n 1 --skip 1 echo $LAST_COMMIT)" >> $GITHUB_ENV
         echo "MY_VARIABLE=example" >> $GITHUB_ENV
-        
+
+    - name: Get the commit before the merge commit hash
+      run: |
+        echo "Value $LAST_COMMIT"
+        #echo "COMMIT_BEFORE_LAST=$(git rev-list -n 1 --skip 1 echo $LAST_COMMIT)" >> $GITHUB_ENV
+        echo "MY_VARIABLE=example" >> $GITHUB_ENV
+
     - name: Use Environment Variable
       run: |
         echo $LAST_COMMIT
