@@ -34,10 +34,10 @@ jobs:
     - name: Get commit hashes
       run: |
         git diff --name-only HEAD~1 HEAD
-        LAST_COMMIT=$(git rev-parse HEAD)
-        COMMIT_BEFORE_LAST=$(git rev-parse HEAD~1)
-        echo "::set-output name=last_commit::$LAST_COMMIT"
-        echo "::set-output name=commit_before_last::$COMMIT_BEFORE_LAST"
+        #LAST_COMMIT=$(git rev-parse HEAD)
+        #COMMIT_BEFORE_LAST=$(git rev-parse HEAD~1)
+        #echo "::set-output name=last_commit::$LAST_COMMIT"
+        #echo "::set-output name=commit_before_last::$COMMIT_BEFORE_LAST"
 
     - name: Create output directory
       run: mkdir diff_files
