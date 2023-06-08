@@ -56,8 +56,8 @@ jobs:
 
     - name: Get diff
       run: |
-        git diff --name-only ${COMMIT_BEFORE_LAST} ${env.LAST_COMMIT}
-        git diff --name-only ${COMMIT_BEFORE_LAST} ${env.LAST_COMMIT} > diff_files/files.txt
+        git diff --name-only ${COMMIT_BEFORE_LAST} ${LAST_COMMIT}
+        git diff --name-only ${COMMIT_BEFORE_LAST} ${LAST_COMMIT} > diff_files/files.txt
 
     - name: Show diff files
       run: cat diff_files/files.txt
