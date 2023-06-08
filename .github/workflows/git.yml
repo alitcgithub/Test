@@ -36,6 +36,8 @@ jobs:
     - name: Get commit hashes
       run: |
         echo "LAST_COMMIT=$(git log --merges -n 1 --pretty=format:%H)" >> $GITHUB_ENV
+        echo $LAST_COMMIT
+        echo "COMMIT_BEFORE_LAST=$(git rev-list -n 1 --skip 1 echo $LAST_COMMIT)" >> $GITHUB_ENV
         echo "MY_VARIABLE=example" >> $GITHUB_ENV
         
     - name: Use Environment Variable
