@@ -61,5 +61,6 @@ jobs:
 
     - name: Show diff files
       run: |
+        pwd
         cat diff_files/files.txt
         tree
