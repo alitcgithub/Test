@@ -1,0 +1,32 @@
+name: Git Diff Action
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  diff:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install Git
+      run: apt-get update && apt-get -y install git
+
+    - name: Get commit hashes
+      run: |
+        LAST_COMMIT=$(git rev-parse HEAD~1)
+        COMMIT_BEFORE_LAST=$(git rev-parse HEAD~2)
+        echo "::set-output name=last_commit::$LAST_COMMIT"
+        echo "::set-output name=commit_before_last::$COMMIT_BEFORE_LAST"
+
+    - name: Create output directory
+      run: mkdir diff_files
+
+    - name: Get diff
+      run: git diff --name-only ${{ steps.get_commit_hashes.outputs.commit_before_last }} ${{ steps.get_commit_hashes.outputs.last_commit }} > diff_files/files.txt
+
+    - name: Show diff files
+      run: cat diff_files/files.txt
