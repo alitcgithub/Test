@@ -42,7 +42,7 @@ jobs:
         #echo "${commit_before_last}"
         
     - name: Use Environment Variable
-        echo $MY_VARIABLE
+      run: echo $MY_VARIABLE
 
     - name: Create output directory
       run: mkdir diff_files
