@@ -43,12 +43,13 @@ jobs:
     - name: Get the commit before the merge commit hash
       run: |
         echo "Value $LAST_COMMIT"
-        #echo "COMMIT_BEFORE_LAST=$(git rev-list -n 1 --skip 1 echo $LAST_COMMIT)" >> $GITHUB_ENV
+        echo "COMMIT_BEFORE_LAST=$(git rev-list -n 1 --skip 1 echo $LAST_COMMIT)" >> $GITHUB_ENV
         echo "MY_VARIABLE=example" >> $GITHUB_ENV
 
     - name: Use Environment Variable
       run: |
         echo $LAST_COMMIT
+        echo $COMMIT_BEFORE_LAST
         echo $MY_VARIABLE
 
     - name: Create output directory
