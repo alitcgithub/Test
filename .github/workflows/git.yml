@@ -37,6 +37,8 @@ jobs:
       run: |
         LAST_COMMIT=$(git log --merges -n 1 --pretty=format:"%H")
         COMMIT_BEFORE_LAST=$(git log --merges -n 2 --skip 1 --pretty=format:"%H")
+        echo $LAST_COMMIT
+        echo $COMMIT_BEFORE_LAST
         echo "::set-output name=last_commit::$LAST_COMMIT"
         echo "::set-output name=commit_before_last::$COMMIT_BEFORE_LAST"
 
@@ -44,7 +46,9 @@ jobs:
       run: mkdir diff_files
 
     - name: Get diff
-      run: git diff --name-only ${{ steps.get_commit_hashes.outputs.commit_before_last }} ${{ steps.get_commit_hashes.outputs.last_commit }} > diff_files/files.txt
+      run: |
+        git diff --name-only ${{ steps.get_commit_hashes.outputs.commit_before_last }} ${{ steps.get_commit_hashes.outputs.last_commit }}
+        git diff --name-only ${{ steps.get_commit_hashes.outputs.commit_before_last }} ${{ steps.get_commit_hashes.outputs.last_commit }} > diff_files/files.txt
 
     - name: Show diff files
       run: cat diff_files/files.txt
