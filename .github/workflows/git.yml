@@ -35,16 +35,13 @@ jobs:
 
     - name: Get commit hashes
       run: |
-        echo "last_commit=$(git log --merges -n 1 --pretty=format:%H)" >> $GITHUB_ENV
-        echo "${last_commit}"
+        echo "LAST_COMMIT=$(git log --merges -n 1 --pretty=format:%H)" >> $GITHUB_ENV
         echo "MY_VARIABLE=example" >> $GITHUB_ENV
-        echo ---------------------------------
-        echo $MY_VARIABLE
-        #echo "commit_before_last=$(git rev-parse ${last_commit}^)" >> $GITHUB_ENV
-        #echo "${commit_before_last}"
         
     - name: Use Environment Variable
-      run: echo $MY_VARIABLE
+      run: |
+        echo $LAST_COMMIT
+        echo $MY_VARIABLE
 
     - name: Create output directory
       run: mkdir diff_files
